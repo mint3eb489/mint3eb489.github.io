@@ -131,8 +131,8 @@
         <h2 class="text-2xl tracking-wide">Ausstellung & Referenzen</h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3">
-        <!-- Großes Bild (Referenz 1) -->
-        <div class="md:col-span-2 aspect-[4/3] md:aspect-auto border-b md:border-b-0 md:border-r border-black/10 relative overflow-hidden group cursor-pointer">
+        <!-- Großes Bild (Referenz 1) - 'md:aspect-auto' entfernt, damit die Höhe am PC nicht kollabiert -->
+        <div class="md:col-span-2 aspect-[4/3] border-b md:border-b-0 md:border-r border-black/10 relative overflow-hidden group cursor-pointer">
           <img src="images/bilder/kuechen/kueche1.jpg" alt="Küchenplanung Referenz" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
             <span class="text-xs tracking-widest uppercase text-white">Referenzbild 1</span>
