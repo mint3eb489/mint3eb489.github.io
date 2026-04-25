@@ -298,13 +298,16 @@
         <!-- Left: Konfigurator -->
         <div class="p-5 lg:p-12 border-r border-black/10 dark:border-white/10 space-y-6 flex flex-col bg-brand-light dark:bg-brand-dark overflow-y-auto transition-colors duration-500">
           <div>
-            <h3 class="text-2xl font-light mb-2 tracking-tight">Ästhetik begreifen.</h3>
-            <p class="text-xs leading-relaxed opacity-90 dark:opacity-80 max-w-md hidden sm:block">
+            <!-- HIER: Responsive Überschrift (text-2xl am Handy, text-3xl am PC) -->
+            <h3 class="text-2xl md:text-3xl font-light mb-2 md:mb-3 tracking-tight">Ästhetik begreifen.</h3>
+            <!-- HIER: Responsive Text -->
+            <p class="text-xs md:text-sm lg:text-base leading-relaxed opacity-90 dark:opacity-80 max-w-md hidden sm:block">
               Design ist das Zusammenspiel von Details. Experimentiere mit Farben und Texturen, um ein erstes Gefühl für die Harmonie deiner zukünftigen Küche zu entwickeln.
             </p>
-            <div class="hidden sm:flex items-start gap-2 mt-4 pt-4 border-t border-black/5 dark:border-white/10 max-w-md transition-colors duration-500">
-              <i data-lucide="info" class="w-3.5 h-3.5 text-brand-accent mt-0.5 shrink-0"></i>
-              <p class="text-[10px] leading-relaxed opacity-80">
+            <div class="hidden sm:flex items-start gap-2 md:gap-3 mt-4 pt-4 border-t border-black/5 dark:border-white/10 max-w-md transition-colors duration-500">
+              <i data-lucide="info" class="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-accent mt-0.5 shrink-0"></i>
+              <!-- HIER: Responsive Info-Text -->
+              <p class="text-[10px] md:text-xs leading-relaxed opacity-80">
                 Für unsere Planungen vertrauen wir auf den Hersteller <strong><a href="https://www.ballerina.de" target="_blank" class="hover:text-brand-gold underline transition-colors">Ballerina Küchen</a></strong>. Die hier gezeigten Fronten entsprechen den originalen Mustern für dein Moodboard.
               </p>
             </div>
@@ -314,7 +317,8 @@
             <!-- 1. Fronten -->
             <div>
               <div class="flex justify-between items-end mb-2">
-                <p class="text-[10px] uppercase tracking-widest font-medium text-brand-accent">1. Frontmaterial</p>
+                <!-- HIER: Responsive Label -->
+                <p class="text-[10px] md:text-xs uppercase tracking-widest font-medium text-brand-accent">1. Frontmaterial</p>
                 <div id="container-front-kategorien" class="flex gap-1.5"></div>
               </div>
               <div id="container-fronten" class="flex overflow-x-auto gap-3 py-4 px-4 -mx-4 snap-x scroll-px-4 hide-scrollbar cursor-grab"></div>
@@ -323,7 +327,8 @@
             <!-- 2. Arbeitsplatte -->
             <div>
               <div class="flex justify-between items-end mb-2">
-                <p class="text-[10px] uppercase tracking-widest font-medium text-brand-accent">2. Arbeitsplatte</p>
+                <!-- HIER: Responsive Label -->
+                <p class="text-[10px] md:text-xs uppercase tracking-widest font-medium text-brand-accent">2. Arbeitsplatte</p>
                 <div id="container-apl-kategorien" class="flex gap-1.5"></div>
               </div>
               <div id="container-arbeitsplatten" class="flex overflow-x-auto gap-3 py-4 px-4 -mx-4 snap-x scroll-px-4 hide-scrollbar cursor-grab"></div>
@@ -332,7 +337,8 @@
             <!-- 3. Korpus -->
             <div>
               <div class="flex justify-between items-end mb-2">
-                <p class="text-[10px] uppercase tracking-widest font-medium text-brand-accent">3. Korpus</p>
+                <!-- HIER: Responsive Label -->
+                <p class="text-[10px] md:text-xs uppercase tracking-widest font-medium text-brand-accent">3. Korpus</p>
                 <div id="container-korpus-kategorien" class="flex gap-1.5"></div>
               </div>
               <div id="container-korpus" class="flex overflow-x-auto gap-3 py-4 px-4 -mx-4 snap-x scroll-px-4 hide-scrollbar cursor-grab"></div>
@@ -340,7 +346,8 @@
 
             <!-- 4. Kehlleiste -->
             <div>
-              <p class="text-[10px] uppercase tracking-widest mb-2 font-medium text-brand-accent">4. Kehlleiste</p>
+              <!-- HIER: Responsive Label -->
+              <p class="text-[10px] md:text-xs uppercase tracking-widest mb-2 font-medium text-brand-accent">4. Kehlleiste</p>
               <div id="container-kehlleisten" class="flex overflow-x-auto gap-3 py-4 px-4 -mx-4 snap-x scroll-px-4 hide-scrollbar cursor-grab"></div>
             </div>
           </div>
@@ -384,8 +391,10 @@
         
         <div class="p-8 lg:p-16 border-r border-black/10 dark:border-white/10 space-y-8 flex flex-col bg-brand-light dark:bg-brand-dark transition-colors duration-500">
           <div>
-            <h3 class="text-3xl font-light mb-4 tracking-tight">Perspektiven entdecken.</h3>
-            <p class="text-sm leading-relaxed opacity-90 dark:opacity-80">
+            <!-- HIER: Responsive Überschrift -->
+            <h3 class="text-2xl md:text-3xl font-light mb-3 tracking-tight">Perspektiven entdecken.</h3>
+            <!-- HIER: Responsive Text -->
+            <p class="text-sm md:text-base leading-relaxed opacity-90 dark:opacity-80">
               Welcher Stil passt zu dir? Vergleiche hier verschiedene Materialkonzepte direkt im selben Raum, um ein Gefühl für deine perfekte Kombination zu bekommen.
             </p>
           </div>
@@ -410,10 +419,12 @@
     const themeToggleBtn = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
 
-    // Optional: Automatische Erkennung des System-Themes beim Start (kann auskommentiert werden, wenn es standardmäßig immer hell sein soll)
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    // Automatische System-Theme-Erkennung wurde deaktiviert.
+    // Die Seite startet nun IMMER im Lightmode.
+    /* if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       htmlElement.classList.add('dark');
     }
+    */
 
     themeToggleBtn.addEventListener('click', () => {
       htmlElement.classList.toggle('dark');
@@ -615,7 +626,8 @@
       return `
         <button class="config-btn ${btnClass} flex-none w-16 sm:w-20 relative aspect-square rounded-md border border-black/10 dark:border-white/10 overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-md snap-start ${index === 0 ? 'active' : ''}" data-type="${dataType}" ${bgAttr} ${imgAttr} style="background-color: ${bgColor}; ${item.img && item.img !== 'none' ? `background-image: ${item.img};` : ''} background-size: cover; background-position: center;">
           <div class="absolute inset-x-0 bottom-0 bg-white/95 dark:bg-black/80 p-1 translate-y-full group-hover:translate-y-0 transition-transform duration-300 border-t border-black/5 dark:border-white/10">
-            <span class="text-[8px] uppercase tracking-wider text-brand-textLight dark:text-brand-textDark block truncate text-center">${item.name}</span>
+            <!-- HIER: Responsive Kachel-Schrift (text-[8px] am Handy, text-[10px] am PC) -->
+            <span class="text-[8px] md:text-[10px] uppercase tracking-wider text-brand-textLight dark:text-brand-textDark block truncate text-center">${item.name}</span>
           </div>
         </button>
       `;
@@ -625,7 +637,8 @@
     const initKatalog = () => {
       // 1. Front-Kategorien
       document.getElementById('container-front-kategorien').innerHTML = katalogData.frontKategorien.map((cat, index) => `
-        <button class="cat-btn text-[10px] uppercase tracking-wider px-3 py-1 rounded border border-black/20 dark:border-white/20 ${index === 0 ? 'active-cat' : 'text-gray-500 dark:text-gray-400 hover:border-black/50 dark:hover:border-white/50'}" data-group="front" data-target-cat="${cat.id}">
+        <!-- HIER: Responsive Tab-Schrift und Padding -->
+        <button class="cat-btn text-[10px] md:text-[11px] uppercase tracking-wider px-3 py-1 md:py-1.5 rounded border border-black/20 dark:border-white/20 ${index === 0 ? 'active-cat' : 'text-gray-500 dark:text-gray-400 hover:border-black/50 dark:hover:border-white/50'}" data-group="front" data-target-cat="${cat.id}">
           ${cat.name}
         </button>
       `).join('');
@@ -633,7 +646,7 @@
 
       // 2. APL-Kategorien
       document.getElementById('container-apl-kategorien').innerHTML = katalogData.aplKategorien.map((cat, index) => `
-        <button class="cat-btn text-[10px] uppercase tracking-wider px-3 py-1 rounded border border-black/20 dark:border-white/20 ${index === 0 ? 'active-cat' : 'text-gray-500 dark:text-gray-400 hover:border-black/50 dark:hover:border-white/50'}" data-group="apl" data-target-cat="${cat.id}">
+        <button class="cat-btn text-[10px] md:text-[11px] uppercase tracking-wider px-3 py-1 md:py-1.5 rounded border border-black/20 dark:border-white/20 ${index === 0 ? 'active-cat' : 'text-gray-500 dark:text-gray-400 hover:border-black/50 dark:hover:border-white/50'}" data-group="apl" data-target-cat="${cat.id}">
           ${cat.name}
         </button>
       `).join('');
@@ -641,7 +654,7 @@
 
       // 3. Korpus-Kategorien
       document.getElementById('container-korpus-kategorien').innerHTML = katalogData.korpusKategorien.map((cat, index) => `
-        <button class="cat-btn text-[10px] uppercase tracking-wider px-3 py-1 rounded border border-black/20 dark:border-white/20 ${index === 0 ? 'active-cat' : 'text-gray-500 dark:text-gray-400 hover:border-black/50 dark:hover:border-white/50'}" data-group="korpus" data-target-cat="${cat.id}">
+        <button class="cat-btn text-[10px] md:text-[11px] uppercase tracking-wider px-3 py-1 md:py-1.5 rounded border border-black/20 dark:border-white/20 ${index === 0 ? 'active-cat' : 'text-gray-500 dark:text-gray-400 hover:border-black/50 dark:hover:border-white/50'}" data-group="korpus" data-target-cat="${cat.id}">
           ${cat.name}
         </button>
       `).join('');
@@ -660,8 +673,9 @@
       // 5. Stil-Welten
       document.getElementById('container-stil-btns').innerHTML = katalogData.stilwelten.map((item, index) => `
         <button class="stil-btn w-full text-left p-6 rounded-xl border border-black/10 dark:border-white/10 hover:border-brand-gold dark:hover:border-brand-gold hover:bg-white dark:hover:bg-[#252322] transition-all group ${index === 0 ? 'active-stil border-brand-gold dark:border-brand-gold bg-white dark:bg-[#252322] shadow-sm' : ''}" data-target="img-${item.id}">
-          <h4 class="text-sm uppercase tracking-widest font-medium text-brand-textLight dark:text-brand-textDark mb-1 group-hover:text-brand-gold dark:group-hover:text-brand-gold">${item.title}</h4>
-          <p class="text-xs opacity-80">${item.desc}</p>
+          <!-- HIER: Responsive Button-Schriften (text-sm/xs am Handy, text-base/sm am PC) -->
+          <h4 class="text-sm md:text-base uppercase tracking-widest font-medium text-brand-textLight dark:text-brand-textDark mb-1 group-hover:text-brand-gold dark:group-hover:text-brand-gold">${item.title}</h4>
+          <p class="text-xs md:text-sm opacity-80">${item.desc}</p>
         </button>
       `).join('');
 
