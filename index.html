@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="antialiased">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,26 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%232E2A28'/%3E%3Ctext x='50' y='64' font-family='sans-serif' font-size='46' font-weight='300' fill='%23D4A373' text-anchor='middle' letter-spacing='2'%3EEB%3C/text%3E%3C/svg%3E" type="image/svg+xml">
   
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind Konfiguration für Dark Mode via Klasse -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              light: '#F4F1F0',
+              dark: '#1C1A19',
+              textLight: '#2E2A28',
+              textDark: '#E8E5E3',
+              accent: '#907B71',
+              gold: '#D4A373'
+            }
+          }
+        }
+      }
+    }
+  </script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     /* --- CSS Variablen für Konfigurator --- */
@@ -23,14 +43,10 @@
       --grp-image: none;
     }
 
-    body {
-      background-color: #F4F1F0;
-      color: #2E2A28;
-    }
-
     /* --- Kategorie Buttons --- */
     .cat-btn { transition: all 0.2s ease; }
     .cat-btn.active-cat { background-color: #2E2A28; color: #F4F1F0; border-color: #2E2A28; }
+    .dark .cat-btn.active-cat { background-color: #E8E5E3; color: #1C1A19; border-color: #E8E5E3; }
 
     /* --- Scrollbar ausblenden für Swipe-Leisten --- */
     .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -45,9 +61,12 @@
 
     /* --- Kachel-Raster Styling --- */
     .config-btn.active { 
-      box-shadow: 0 0 0 2px #F4F1F0, 0 0 0 4px #2E2A28; 
+      box-shadow: 0 0 0 2px var(--tw-ring-color), 0 0 0 4px #2E2A28; 
       z-index: 10; 
       transform: scale(1.05);
+    }
+    .dark .config-btn.active {
+      box-shadow: 0 0 0 2px #1C1A19, 0 0 0 4px #E8E5E3; 
     }
 
     /* --- Flat Lay Collage Styles --- */
@@ -102,56 +121,62 @@
     }
   </style>
 </head>
-<body class="min-h-screen font-sans font-light selection:bg-[#D4A373] selection:text-white relative overflow-x-hidden">
+<body class="min-h-screen font-sans font-light bg-brand-light text-brand-textLight dark:bg-brand-dark dark:text-brand-textDark transition-colors duration-500 selection:bg-brand-gold selection:text-white relative overflow-x-hidden">
 
   <!-- =========================================
        HAUPTSEITE: PORTFOLIO & VISITENKARTE
        ========================================= -->
        
-  <nav class="p-6 md:px-12 flex justify-between items-center border-b border-black/10">
+  <nav class="p-6 md:px-12 flex justify-between items-center border-b border-black/10 dark:border-white/10 transition-colors duration-500">
     <span class="text-sm font-medium tracking-widest uppercase">fs küchen manufaktur Schulz GmbH</span>
-    <span class="text-xs tracking-wide flex items-center gap-2"><i data-lucide="map-pin" class="w-3 h-3"></i> Balingen</span>
+    <div class="flex items-center gap-6">
+      <span class="text-xs tracking-wide hidden sm:flex items-center gap-2 opacity-80">
+        <i data-lucide="map-pin" class="w-3 h-3"></i> Balingen
+      </span>
+      <!-- Dark Mode Toggle -->
+      <button id="theme-toggle" class="opacity-60 hover:opacity-100 transition-opacity p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/10" title="Design wechseln">
+        <i data-lucide="moon" class="w-4 h-4 block dark:hidden" stroke-width="1.5"></i>
+        <i data-lucide="sun" class="w-4 h-4 hidden dark:block" stroke-width="1.5"></i>
+      </button>
+    </div>
   </nav>
 
   <main class="max-w-6xl mx-auto">
-    <!-- Fade-In Klasse hinzugefügt -->
-    <section class="fade-in grid md:grid-cols-2 min-h-[70vh] border-b border-black/10">
-      <div class="p-8 md:p-16 flex flex-col justify-center order-2 md:order-1 border-t md:border-t-0 md:border-r border-black/10">
-        <p class="text-xs uppercase tracking-widest mb-6 text-[#907B71]">Portfolio & Kontakt</p>
+    <!-- Hero Section -->
+    <section class="fade-in grid md:grid-cols-2 min-h-[70vh] border-b border-black/10 dark:border-white/10 transition-colors duration-500">
+      <div class="p-8 md:p-16 flex flex-col justify-center order-2 md:order-1 border-t md:border-t-0 md:border-r border-black/10 dark:border-white/10 transition-colors duration-500">
+        <p class="text-xs uppercase tracking-widest mb-6 text-brand-accent">Portfolio & Kontakt</p>
         <h1 class="text-5xl md:text-7xl font-normal tracking-tight mb-6 leading-tight">
-          Planung beginnt <br /> <span class="italic text-[#907B71]">mit Zuhören.</span>
+          Planung beginnt <br /> <span class="italic text-brand-accent">mit Zuhören.</span>
         </h1>
-        <p class="text-lg leading-relaxed opacity-80 max-w-md mb-10">
+        <p class="text-lg leading-relaxed opacity-90 dark:opacity-80 max-w-md mb-10">
           Hallo, ich bin Enrico Belmonte. Als Küchenfachberater und Ausbilder weiß ich: Eine exzellente Küche entsteht nicht am Bildschirm, sondern im Dialog. Ich kombiniere präzise 3D-Planung mit fundiertem Fachwissen, um Räume zu schaffen, die technisch perfekt funktionieren und ästhetisch begeistern. Ehrlich, durchdacht und auf Augenhöhe.
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4">
-          <a href="mailto:belmonte@fs-kuechen.de" class="inline-flex items-center justify-center gap-4 border border-[#907B71] px-6 py-3 transition-all hover:bg-[#907B71] hover:text-[#F4F1F0] group">
+          <a href="mailto:belmonte@fs-kuechen.de" class="inline-flex items-center justify-center gap-4 border border-brand-accent px-6 py-3 transition-all hover:bg-brand-accent hover:text-brand-light dark:hover:text-brand-textLight group">
             <span class="text-sm tracking-wide uppercase">Projekt starten</span>
             <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" stroke-width="1"></i>
           </a>
-          <button id="open-studio-btn" class="inline-flex items-center justify-center gap-4 border border-black/20 px-6 py-3 transition-all hover:bg-[#D4A373] hover:text-[#F4F1F0] hover:border-[#D4A373] group bg-white/50">
+          <button id="open-studio-btn" class="inline-flex items-center justify-center gap-4 border border-black/20 dark:border-white/20 px-6 py-3 transition-all hover:bg-brand-gold hover:text-brand-light dark:hover:text-brand-dark hover:border-brand-gold dark:hover:border-brand-gold group bg-white/50 dark:bg-black/20">
             <span class="text-sm tracking-wide uppercase font-medium">Studio betreten</span>
             <i data-lucide="sparkles" class="w-4 h-4 group-hover:scale-110 transition-transform" stroke-width="1.5"></i>
           </button>
         </div>
       </div>
 
-      <!-- Container passt sich am Handy an das Bild an, am PC füllt er die Höhe -->
-      <div class="order-1 md:order-2 bg-[#907B71]/10 relative overflow-hidden flex items-center justify-center">
-        <!-- Profilbild -->
+      <div class="order-1 md:order-2 bg-[#907B71]/10 dark:bg-[#907B71]/20 relative overflow-hidden flex items-center justify-center transition-colors duration-500">
         <img src="images/bilder/profilbilder/enrico1.jpeg" alt="Enrico Belmonte" class="w-full h-auto md:absolute md:inset-0 md:h-full md:object-cover md:object-top" />
       </div>
     </section>
 
-    <!-- Fade-In Klasse hinzugefügt -->
-    <section class="fade-in border-b border-black/10">
-      <div class="p-8 md:px-16 md:py-12 border-b border-black/10">
+    <!-- Referenzen -->
+    <section class="fade-in border-b border-black/10 dark:border-white/10 transition-colors duration-500">
+      <div class="p-8 md:px-16 md:py-12 border-b border-black/10 dark:border-white/10 transition-colors duration-500">
         <h2 class="text-2xl tracking-wide">Ausstellung & Referenzen</h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3">
-        <!-- Großes Bild (Referenz 1) - 'md:aspect-auto' entfernt, damit die Höhe am PC nicht kollabiert -->
-        <div class="md:col-span-2 aspect-[4/3] border-b md:border-b-0 md:border-r border-black/10 relative overflow-hidden group cursor-pointer">
+        <div class="md:col-span-2 aspect-[4/3] border-b md:border-b-0 md:border-r border-black/10 dark:border-white/10 relative overflow-hidden group cursor-pointer transition-colors duration-500">
           <img src="images/bilder/kuechen/kueche1.jpg" alt="Küchenplanung Referenz" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
             <span class="text-xs tracking-widest uppercase text-white">Referenzbild 1</span>
@@ -159,14 +184,12 @@
         </div>
         
         <div class="grid grid-rows-2">
-          <!-- Detailansicht -->
-          <div class="aspect-square md:aspect-auto border-b border-black/10 relative overflow-hidden group cursor-pointer">
+          <div class="aspect-square md:aspect-auto border-b border-black/10 dark:border-white/10 relative overflow-hidden group cursor-pointer transition-colors duration-500">
             <img src="images/bilder/kuechen/detailansicht1.jpg" alt="Detailansicht Material" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
             <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
               <span class="text-xs tracking-widest uppercase text-white">Detailansicht</span>
             </div>
           </div>
-          <!-- CARAT Render -->
           <div class="aspect-square md:aspect-auto relative overflow-hidden group cursor-pointer">
             <img src="images/bilder/kuechen/caratbild1.jpg" alt="CARAT 3D-Render" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
             <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -177,61 +200,61 @@
       </div>
     </section>
 
-    <!-- Fade-In Klasse hinzugefügt -->
-    <section class="fade-in grid md:grid-cols-3 border-b border-black/10">
-      <div class="p-8 md:p-16 md:border-r border-b md:border-b-0 border-black/10">
+    <!-- Ansatz -->
+    <section class="fade-in grid md:grid-cols-3 border-b border-black/10 dark:border-white/10 transition-colors duration-500">
+      <div class="p-8 md:p-16 md:border-r border-b md:border-b-0 border-black/10 dark:border-white/10 transition-colors duration-500">
         <h2 class="text-2xl tracking-wide mb-4">Planung mit Tiefgang</h2>
-        <p class="opacity-70 text-sm leading-relaxed">
+        <p class="opacity-80 text-sm leading-relaxed">
           Mein Prozess beginnt mit echtem Zuhören. Statt sofort am Bildschirm zu entwerfen, nehme ich mir Zeit für eine fundierte Bedarfsermittlung in einem ersten, unverbindlichen Gespräch bei uns in der Ausstellung. Erst wenn ich deine Anforderungen genau verstehe, ziehe ich mich für die Ausarbeitung zurück. Diese getrennte Vorbereitung ermöglicht eine Komplexität und Detailtiefe, die im klassischen Beratungsgespräch oft verloren geht. Das Ergebnis ist eine Planung, die keine Fragen offen lässt.
         </p>
       </div>
       <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2">
-        <div class="p-8 md:p-12 hover:bg-[#907B71]/5 transition-colors sm:border-r border-b border-black/10">
-          <span class="text-xs font-medium" style="color: #D4A373">01</span>
+        <div class="p-8 md:p-12 hover:bg-black/5 dark:hover:bg-white/5 transition-colors sm:border-r border-b border-black/10 dark:border-white/10">
+          <span class="text-xs font-medium text-brand-gold">01</span>
           <h3 class="text-lg tracking-wide mt-2 mb-2">Bedarfsanalyse - Grundlage</h3>
-          <p class="text-sm opacity-60 leading-relaxed">Verständnis für deinen Raum sowie Wünsche und Vorstellung</p>
+          <p class="text-sm opacity-80 leading-relaxed">Verständnis für deinen Raum sowie Wünsche und Vorstellung.</p>
         </div>
-        <div class="p-8 md:p-12 hover:bg-[#907B71]/5 transition-colors border-b border-black/10">
-          <span class="text-xs font-medium" style="color: #D4A373">02</span>
+        <div class="p-8 md:p-12 hover:bg-black/5 dark:hover:bg-white/5 transition-colors border-b border-black/10 dark:border-white/10">
+          <span class="text-xs font-medium text-brand-gold">02</span>
           <h3 class="text-lg tracking-wide mt-2 mb-2">Bedarfsanalyse - Materialkonzept</h3>
-          <p class="text-sm opacity-60 leading-relaxed">Harmonische Abstimmung von Fronten, Arbeitsplatten und Licht in der Ausstellung.</p>
+          <p class="text-sm opacity-80 leading-relaxed">Harmonische Abstimmung von Fronten, Arbeitsplatten und Licht in der Ausstellung.</p>
         </div>
-        <div class="p-8 md:p-12 hover:bg-[#907B71]/5 transition-colors sm:border-r border-black/10">
-          <span class="text-xs font-medium" style="color: #D4A373">03</span>
+        <div class="p-8 md:p-12 hover:bg-black/5 dark:hover:bg-white/5 transition-colors sm:border-r border-black/10 dark:border-white/10">
+          <span class="text-xs font-medium text-brand-gold">03</span>
           <h3 class="text-lg tracking-wide mt-2 mb-2">3D-Planung</h3>
-          <p class="text-sm opacity-60 leading-relaxed">Vorbereitung verschiedenster Küchenformen durch fotorealistische Visualisierung. Ich lasse nichts unversucht.</p>
+          <p class="text-sm opacity-80 leading-relaxed">Vorbereitung verschiedenster Küchenformen durch fotorealistische Visualisierung. Ich lasse nichts unversucht.</p>
         </div>
-        <div class="p-8 md:p-12 hover:bg-[#907B71]/5 transition-colors">
-          <span class="text-xs font-medium" style="color: #D4A373">04</span>
+        <div class="p-8 md:p-12 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+          <span class="text-xs font-medium text-brand-gold">04</span>
           <h3 class="text-lg tracking-wide mt-2 mb-2">Projektleitung</h3>
-          <p class="text-sm opacity-60 leading-relaxed">Vom ersten Aufmaß über die Endbesprechung bis zur fachgerechten Montage.</p>
+          <p class="text-sm opacity-80 leading-relaxed">Vom ersten Aufmaß über die Endbesprechung bis zur fachgerechten Montage.</p>
         </div>
       </div>
     </section>
 
-    <!-- Fade-In Klasse hinzugefügt -->
+    <!-- Footer -->
     <footer class="fade-in p-8 md:p-16 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
       <div class="flex flex-col gap-1">
         <a href="https://maps.google.com/?daddr=Wilhelm-Kraut-Straße+30,+72336+Balingen" 
            onclick="if(navigator.userAgent.match(/iPhone|iPad|iPod|Mac/i)) { this.href='http://maps.apple.com/?daddr=Wilhelm-Kraut-Straße+30,+72336+Balingen'; }"
            target="_blank" 
-           class="text-sm opacity-60 hover:opacity-100 transition-opacity flex items-center gap-2">
+           class="text-sm opacity-80 hover:opacity-100 transition-opacity flex items-center gap-2">
           <i data-lucide="map-pin" class="w-4 h-4" stroke-width="1.5"></i> Wilhelm-Kraut-Straße 30, 72336 Balingen
         </a>
       </div>
       <div class="flex flex-wrap gap-6">
-        <a href="mailto:belmonte@fs-kuechen.de" class="text-sm opacity-60 hover:opacity-100 transition-opacity flex items-center gap-2">
+        <a href="mailto:belmonte@fs-kuechen.de" class="text-sm opacity-80 hover:opacity-100 transition-opacity flex items-center gap-2">
           <i data-lucide="mail" class="w-4 h-4" stroke-width="1.5"></i> E-Mail
         </a>
-        <a href="tel:+49743399851311" class="text-sm opacity-60 hover:opacity-100 transition-opacity flex items-center gap-2">
+        <a href="tel:+49743399851311" class="text-sm opacity-80 hover:opacity-100 transition-opacity flex items-center gap-2">
           <i data-lucide="phone" class="w-4 h-4" stroke-width="1.5"></i> Telefon
         </a>
-        <a href="https://www.fs-kuechen.de" target="_blank" class="text-sm opacity-60 hover:opacity-100 transition-opacity flex items-center gap-2">
+        <a href="https://www.fs-kuechen.de" target="_blank" class="text-sm opacity-80 hover:opacity-100 transition-opacity flex items-center gap-2">
           <i data-lucide="globe" class="w-4 h-4" stroke-width="1.5"></i> Webseite
         </a>
       </div>
       <div class="flex gap-6">
-        <a href="https://instagram.com/" target="_blank" class="text-[#907B71] hover:text-[#D4A373] transition-colors">
+        <a href="https://instagram.com/" target="_blank" class="text-brand-accent hover:text-brand-gold transition-colors">
           <i data-lucide="instagram" class="w-6 h-6" stroke-width="1.5"></i>
         </a>
       </div>
@@ -243,23 +266,23 @@
        GIMMICK: STUDIO VOLLBILD-OVERLAY
        ========================================= -->
        
-  <div id="studio-panel" class="fixed inset-0 bg-[#F4F1F0] z-50 transform translate-y-full transition-transform duration-700 ease-in-out flex flex-col h-screen overflow-hidden">
+  <div id="studio-panel" class="fixed inset-0 bg-brand-light dark:bg-brand-dark z-50 transform translate-y-full transition-all duration-700 ease-in-out flex flex-col h-screen overflow-hidden">
     
     <!-- Header / Tab Navigation -->
-    <div class="flex flex-col md:flex-row justify-between items-center p-3 px-6 border-b border-black/10 shrink-0 bg-white shadow-sm gap-3 relative">
+    <div class="flex flex-col md:flex-row justify-between items-center p-3 px-6 border-b border-black/10 dark:border-white/10 shrink-0 bg-white dark:bg-[#252322] shadow-sm gap-3 relative transition-colors duration-500">
       <h2 class="text-sm tracking-widest uppercase hidden md:block">Material-Studio</h2>
       
       <!-- Tab Switcher -->
-      <div class="flex bg-gray-100 p-1 rounded-md">
-        <button id="tab-flatlay" class="px-4 py-1.5 text-xs font-medium tracking-wide uppercase rounded bg-white shadow-sm transition-all text-[#2E2A28]">
+      <div class="flex bg-gray-100 dark:bg-[#1C1A19] p-1 rounded-md transition-colors duration-500">
+        <button id="tab-flatlay" class="px-4 py-1.5 text-xs font-medium tracking-wide uppercase rounded bg-white dark:bg-[#3A3634] shadow-sm transition-all text-brand-textLight dark:text-brand-textDark">
           Material-Collage
         </button>
-        <button id="tab-stilwelten" class="px-4 py-1.5 text-xs font-medium tracking-wide uppercase rounded transition-all text-gray-500 hover:text-[#2E2A28]">
+        <button id="tab-stilwelten" class="px-4 py-1.5 text-xs font-medium tracking-wide uppercase rounded transition-all text-gray-500 dark:text-gray-400 hover:text-brand-textLight dark:hover:text-brand-textDark">
           Stil-Welten
         </button>
       </div>
 
-      <button id="close-studio-btn" class="p-2 hover:bg-black/5 rounded-full transition-colors flex items-center gap-2 text-xs uppercase tracking-widest absolute md:static top-4 right-4 md:top-auto md:right-auto">
+      <button id="close-studio-btn" class="p-2 hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors flex items-center gap-2 text-xs uppercase tracking-widest absolute md:static top-4 right-4 md:top-auto md:right-auto">
         <span class="hidden md:inline">Schließen</span>
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
@@ -273,26 +296,25 @@
       <div id="view-flatlay" class="absolute inset-0 grid lg:grid-cols-2 opacity-100 transition-opacity duration-500">
         
         <!-- Left: Konfigurator -->
-        <div class="p-5 lg:p-12 border-r border-black/10 space-y-6 flex flex-col bg-[#F4F1F0] overflow-y-auto">
+        <div class="p-5 lg:p-12 border-r border-black/10 dark:border-white/10 space-y-6 flex flex-col bg-brand-light dark:bg-brand-dark overflow-y-auto transition-colors duration-500">
           <div>
             <h3 class="text-2xl font-light mb-2 tracking-tight">Ästhetik begreifen.</h3>
-            <p class="text-xs leading-relaxed opacity-80 max-w-md hidden sm:block">
+            <p class="text-xs leading-relaxed opacity-90 dark:opacity-80 max-w-md hidden sm:block">
               Design ist das Zusammenspiel von Details. Experimentiere mit Farben und Texturen, um ein erstes Gefühl für die Harmonie deiner zukünftigen Küche zu entwickeln.
             </p>
-            <div class="hidden sm:flex items-start gap-2 mt-4 pt-4 border-t border-black/5 max-w-md">
-              <i data-lucide="info" class="w-3.5 h-3.5 text-[#907B71] mt-0.5 shrink-0"></i>
-              <p class="text-[10px] leading-relaxed opacity-60">
-                Für unsere Planungen vertrauen wir auf den Hersteller <strong><a href="https://www.ballerina.de" target="_blank" class="hover:text-[#D4A373] underline transition-colors">Ballerina Küchen</a></strong>. Die hier gezeigten Fronten entsprechen den originalen Mustern für dein Moodboard.
+            <div class="hidden sm:flex items-start gap-2 mt-4 pt-4 border-t border-black/5 dark:border-white/10 max-w-md transition-colors duration-500">
+              <i data-lucide="info" class="w-3.5 h-3.5 text-brand-accent mt-0.5 shrink-0"></i>
+              <p class="text-[10px] leading-relaxed opacity-80">
+                Für unsere Planungen vertrauen wir auf den Hersteller <strong><a href="https://www.ballerina.de" target="_blank" class="hover:text-brand-gold underline transition-colors">Ballerina Küchen</a></strong>. Die hier gezeigten Fronten entsprechen den originalen Mustern für dein Moodboard.
               </p>
             </div>
           </div>
 
-          <!-- HIER WAR DIE BEGRENZUNG: max-w-md wurde zu max-w-2xl geändert -->
           <div class="space-y-4 w-full max-w-2xl xl:max-w-3xl">
             <!-- 1. Fronten -->
             <div>
               <div class="flex justify-between items-end mb-2">
-                <p class="text-[10px] uppercase tracking-widest font-medium text-[#907B71]">1. Frontmaterial</p>
+                <p class="text-[10px] uppercase tracking-widest font-medium text-brand-accent">1. Frontmaterial</p>
                 <div id="container-front-kategorien" class="flex gap-1.5"></div>
               </div>
               <div id="container-fronten" class="flex overflow-x-auto gap-3 py-4 px-4 -mx-4 snap-x scroll-px-4 hide-scrollbar cursor-grab"></div>
@@ -301,7 +323,7 @@
             <!-- 2. Arbeitsplatte -->
             <div>
               <div class="flex justify-between items-end mb-2">
-                <p class="text-[10px] uppercase tracking-widest font-medium text-[#907B71]">2. Arbeitsplatte</p>
+                <p class="text-[10px] uppercase tracking-widest font-medium text-brand-accent">2. Arbeitsplatte</p>
                 <div id="container-apl-kategorien" class="flex gap-1.5"></div>
               </div>
               <div id="container-arbeitsplatten" class="flex overflow-x-auto gap-3 py-4 px-4 -mx-4 snap-x scroll-px-4 hide-scrollbar cursor-grab"></div>
@@ -310,7 +332,7 @@
             <!-- 3. Korpus -->
             <div>
               <div class="flex justify-between items-end mb-2">
-                <p class="text-[10px] uppercase tracking-widest font-medium text-[#907B71]">3. Korpus</p>
+                <p class="text-[10px] uppercase tracking-widest font-medium text-brand-accent">3. Korpus</p>
                 <div id="container-korpus-kategorien" class="flex gap-1.5"></div>
               </div>
               <div id="container-korpus" class="flex overflow-x-auto gap-3 py-4 px-4 -mx-4 snap-x scroll-px-4 hide-scrollbar cursor-grab"></div>
@@ -318,37 +340,37 @@
 
             <!-- 4. Kehlleiste -->
             <div>
-              <p class="text-[10px] uppercase tracking-widest mb-2 font-medium text-[#907B71]">4. Kehlleiste</p>
+              <p class="text-[10px] uppercase tracking-widest mb-2 font-medium text-brand-accent">4. Kehlleiste</p>
               <div id="container-kehlleisten" class="flex overflow-x-auto gap-3 py-4 px-4 -mx-4 snap-x scroll-px-4 hide-scrollbar cursor-grab"></div>
             </div>
           </div>
         </div>
 
         <!-- Right: Flat Lay Visualisierung -->
-        <div class="p-8 lg:p-16 flex items-center justify-center bg-[#E8E5E3]/40 bg-[radial-gradient(#d1d5db_1px,transparent_1px)] [background-size:20px_20px]">
+        <div class="p-8 lg:p-16 flex items-center justify-center bg-[#E8E5E3]/40 dark:bg-[#151312] bg-[radial-gradient(#d1d5db_1px,transparent_1px)] dark:bg-[radial-gradient(#252322_1px,transparent_1px)] [background-size:20px_20px] transition-colors duration-500">
           
           <div class="relative w-full max-w-lg aspect-square">
             
             <!-- Muster 1: Korpus -->
-            <div class="flatlay-korpus absolute top-4 left-4 w-[75%] h-[75%] rounded-md shadow-lg border border-black/10 transform -rotate-3 transition-all hover:rotate-0 hover:scale-105 duration-500 z-0">
-              <span class="absolute bottom-4 left-4 text-[10px] uppercase tracking-widest text-white bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded">Korpus</span>
+            <div class="flatlay-korpus absolute top-4 left-4 w-[75%] h-[75%] rounded-md shadow-lg border border-black/10 dark:border-white/10 transform -rotate-3 transition-all hover:rotate-0 hover:scale-105 duration-500 z-0">
+              <span class="absolute bottom-4 left-4 text-[10px] uppercase tracking-widest text-white bg-black/50 dark:bg-black/70 backdrop-blur-sm px-3 py-1.5 rounded">Korpus</span>
             </div>
 
             <!-- Muster 2: Arbeitsplatte -->
-            <div class="flatlay-apl absolute bottom-8 right-0 w-[70%] h-[60%] rounded-md shadow-2xl border border-black/10 transform rotate-6 transition-all hover:rotate-2 hover:scale-105 duration-500 z-10">
-              <span class="absolute top-4 right-4 text-[10px] uppercase tracking-widest text-white bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded">Arbeitsplatte</span>
+            <div class="flatlay-apl absolute bottom-8 right-0 w-[70%] h-[60%] rounded-md shadow-2xl border border-black/10 dark:border-white/10 transform rotate-6 transition-all hover:rotate-2 hover:scale-105 duration-500 z-10">
+              <span class="absolute top-4 right-4 text-[10px] uppercase tracking-widest text-white bg-black/50 dark:bg-black/70 backdrop-blur-sm px-3 py-1.5 rounded">Arbeitsplatte</span>
             </div>
             
             <!-- Muster 3: Kehlleiste -->
-            <div class="flatlay-grp absolute top-[20%] -left-6 w-16 h-[50%] rounded shadow-[0_15px_30px_-5px_rgba(0,0,0,0.4)] border border-white/20 transform -rotate-12 transition-all hover:-rotate-6 hover:scale-105 duration-500 z-40 cursor-default">
-              <span class="absolute top-6 -right-6 text-[10px] uppercase tracking-widest text-white bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded whitespace-nowrap">Kehlleiste</span>
+            <div class="flatlay-grp absolute top-[20%] -left-6 w-16 h-[50%] rounded shadow-[0_15px_30px_-5px_rgba(0,0,0,0.4)] dark:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.8)] border border-white/20 dark:border-white/10 transform -rotate-12 transition-all hover:-rotate-6 hover:scale-105 duration-500 z-40 cursor-default">
+              <span class="absolute top-6 -right-6 text-[10px] uppercase tracking-widest text-white bg-black/50 dark:bg-black/70 backdrop-blur-sm px-3 py-1.5 rounded whitespace-nowrap">Kehlleiste</span>
               <div class="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-black/30 pointer-events-none rounded"></div>
             </div>
 
             <!-- Muster 4: Front -->
-            <div class="flatlay-front absolute top-[15%] left-[20%] w-[55%] h-[55%] rounded shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] border border-white/20 transform rotate-2 transition-all hover:rotate-0 hover:scale-105 duration-500 z-30">
-               <span class="absolute bottom-4 right-4 text-[10px] uppercase tracking-widest text-white bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded">Front</span>
-               <div class="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-black/10 pointer-events-none rounded"></div>
+            <div class="flatlay-front absolute top-[15%] left-[20%] w-[55%] h-[55%] rounded shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] dark:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.9)] border border-white/20 dark:border-white/10 transform rotate-2 transition-all hover:rotate-0 hover:scale-105 duration-500 z-30">
+               <span class="absolute bottom-4 right-4 text-[10px] uppercase tracking-widest text-white bg-black/50 dark:bg-black/70 backdrop-blur-sm px-3 py-1.5 rounded">Front</span>
+               <div class="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-black/20 pointer-events-none rounded"></div>
             </div>
 
           </div>
@@ -360,10 +382,10 @@
            ========================================= -->
       <div id="view-stilwelten" class="absolute inset-0 grid lg:grid-cols-3 opacity-0 pointer-events-none transition-opacity duration-500">
         
-        <div class="p-8 lg:p-16 border-r border-black/10 space-y-8 flex flex-col bg-[#F4F1F0]">
+        <div class="p-8 lg:p-16 border-r border-black/10 dark:border-white/10 space-y-8 flex flex-col bg-brand-light dark:bg-brand-dark transition-colors duration-500">
           <div>
             <h3 class="text-3xl font-light mb-4 tracking-tight">Perspektiven entdecken.</h3>
-            <p class="text-sm leading-relaxed opacity-80">
+            <p class="text-sm leading-relaxed opacity-90 dark:opacity-80">
               Welcher Stil passt zu dir? Vergleiche hier verschiedene Materialkonzepte direkt im selben Raum, um ein Gefühl für deine perfekte Kombination zu bekommen.
             </p>
           </div>
@@ -371,8 +393,7 @@
           <div id="container-stil-btns" class="space-y-3 flex-grow"></div>
         </div>
 
-        <!-- HIER WURDE min-h-[50vh] lg:min-h-full HINZUGEFÜGT -->
-        <div id="container-stil-images" class="lg:col-span-2 relative bg-[#E8E5E3]/40 overflow-hidden flex items-center justify-center p-8 min-h-[50vh] lg:min-h-full"></div>
+        <div id="container-stil-images" class="lg:col-span-2 relative bg-[#E8E5E3]/40 dark:bg-[#151312] overflow-hidden flex items-center justify-center p-8 min-h-[50vh] lg:min-h-full transition-colors duration-500"></div>
       </div>
 
     </div>
@@ -384,6 +405,19 @@
        ========================================= -->
   <script>
     lucide.createIcons();
+
+    // --- Dark Mode Toggle Logik ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const htmlElement = document.documentElement;
+
+    // Optional: Automatische Erkennung des System-Themes beim Start (kann auskommentiert werden, wenn es standardmäßig immer hell sein soll)
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      htmlElement.classList.add('dark');
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      htmlElement.classList.toggle('dark');
+    });
 
     // --- Studio Overlay Toggle Logik ---
     const panel = document.getElementById('studio-panel');
@@ -409,10 +443,11 @@
     const viewStilwelten = document.getElementById('view-stilwelten');
 
     const switchTab = (activeTab, inactiveTab, activeView, inactiveView) => {
-      activeTab.classList.remove('text-gray-500', 'hover:text-[#2E2A28]', 'bg-transparent');
-      activeTab.classList.add('bg-white', 'shadow-sm', 'text-[#2E2A28]');
-      inactiveTab.classList.add('text-gray-500', 'hover:text-[#2E2A28]', 'bg-transparent');
-      inactiveTab.classList.remove('bg-white', 'shadow-sm', 'text-[#2E2A28]');
+      activeTab.classList.remove('text-gray-500', 'dark:text-gray-400', 'hover:text-brand-textLight', 'dark:hover:text-brand-textDark', 'bg-transparent');
+      activeTab.classList.add('bg-white', 'dark:bg-[#3A3634]', 'shadow-sm', 'text-brand-textLight', 'dark:text-brand-textDark');
+      
+      inactiveTab.classList.add('text-gray-500', 'dark:text-gray-400', 'hover:text-brand-textLight', 'dark:hover:text-brand-textDark', 'bg-transparent');
+      inactiveTab.classList.remove('bg-white', 'dark:bg-[#3A3634]', 'shadow-sm', 'text-brand-textLight', 'dark:text-brand-textDark');
 
       inactiveView.classList.remove('opacity-100');
       inactiveView.classList.add('opacity-0', 'pointer-events-none');
@@ -578,9 +613,9 @@
       const bgColor = item.bg || item.color;
       
       return `
-        <button class="config-btn ${btnClass} flex-none w-16 sm:w-20 relative aspect-square rounded-md border border-black/10 overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-md snap-start ${index === 0 ? 'active' : ''}" data-type="${dataType}" ${bgAttr} ${imgAttr} style="background-color: ${bgColor}; ${item.img && item.img !== 'none' ? `background-image: ${item.img};` : ''} background-size: cover; background-position: center;">
-          <div class="absolute inset-x-0 bottom-0 bg-white/95 p-1 translate-y-full group-hover:translate-y-0 transition-transform duration-300 border-t border-black/5">
-            <span class="text-[8px] uppercase tracking-wider text-[#2E2A28] block truncate text-center">${item.name}</span>
+        <button class="config-btn ${btnClass} flex-none w-16 sm:w-20 relative aspect-square rounded-md border border-black/10 dark:border-white/10 overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-md snap-start ${index === 0 ? 'active' : ''}" data-type="${dataType}" ${bgAttr} ${imgAttr} style="background-color: ${bgColor}; ${item.img && item.img !== 'none' ? `background-image: ${item.img};` : ''} background-size: cover; background-position: center;">
+          <div class="absolute inset-x-0 bottom-0 bg-white/95 dark:bg-black/80 p-1 translate-y-full group-hover:translate-y-0 transition-transform duration-300 border-t border-black/5 dark:border-white/10">
+            <span class="text-[8px] uppercase tracking-wider text-brand-textLight dark:text-brand-textDark block truncate text-center">${item.name}</span>
           </div>
         </button>
       `;
@@ -590,7 +625,7 @@
     const initKatalog = () => {
       // 1. Front-Kategorien
       document.getElementById('container-front-kategorien').innerHTML = katalogData.frontKategorien.map((cat, index) => `
-        <button class="cat-btn text-[10px] uppercase tracking-wider px-3 py-1 rounded border border-black/20 ${index === 0 ? 'active-cat' : 'text-gray-500 hover:border-black/50'}" data-group="front" data-target-cat="${cat.id}">
+        <button class="cat-btn text-[10px] uppercase tracking-wider px-3 py-1 rounded border border-black/20 dark:border-white/20 ${index === 0 ? 'active-cat' : 'text-gray-500 dark:text-gray-400 hover:border-black/50 dark:hover:border-white/50'}" data-group="front" data-target-cat="${cat.id}">
           ${cat.name}
         </button>
       `).join('');
@@ -598,7 +633,7 @@
 
       // 2. APL-Kategorien
       document.getElementById('container-apl-kategorien').innerHTML = katalogData.aplKategorien.map((cat, index) => `
-        <button class="cat-btn text-[10px] uppercase tracking-wider px-3 py-1 rounded border border-black/20 ${index === 0 ? 'active-cat' : 'text-gray-500 hover:border-black/50'}" data-group="apl" data-target-cat="${cat.id}">
+        <button class="cat-btn text-[10px] uppercase tracking-wider px-3 py-1 rounded border border-black/20 dark:border-white/20 ${index === 0 ? 'active-cat' : 'text-gray-500 dark:text-gray-400 hover:border-black/50 dark:hover:border-white/50'}" data-group="apl" data-target-cat="${cat.id}">
           ${cat.name}
         </button>
       `).join('');
@@ -606,18 +641,17 @@
 
       // 3. Korpus-Kategorien
       document.getElementById('container-korpus-kategorien').innerHTML = katalogData.korpusKategorien.map((cat, index) => `
-        <button class="cat-btn text-[10px] uppercase tracking-wider px-3 py-1 rounded border border-black/20 ${index === 0 ? 'active-cat' : 'text-gray-500 hover:border-black/50'}" data-group="korpus" data-target-cat="${cat.id}">
+        <button class="cat-btn text-[10px] uppercase tracking-wider px-3 py-1 rounded border border-black/20 dark:border-white/20 ${index === 0 ? 'active-cat' : 'text-gray-500 dark:text-gray-400 hover:border-black/50 dark:hover:border-white/50'}" data-group="korpus" data-target-cat="${cat.id}">
           ${cat.name}
         </button>
       `).join('');
       renderKorpus(katalogData.korpusKategorien[0].id);
 
-      // 4. Kehlleisten (Bilder und Hintergrundfarbe aktiviert)
+      // 4. Kehlleisten
       document.getElementById('container-kehlleisten').innerHTML = katalogData.kehlleisten.map((item, index) => 
         createTile(item, index, 'grp-btn', 'grp', true, true)
       ).join('');
 
-      // Initiales Bild & Farbe für Kehlleiste setzen, falls vorhanden
       if(katalogData.kehlleisten.length > 0) {
          document.documentElement.style.setProperty('--grp-color', katalogData.kehlleisten[0].bg);
          document.documentElement.style.setProperty('--grp-image', katalogData.kehlleisten[0].img);
@@ -625,15 +659,15 @@
 
       // 5. Stil-Welten
       document.getElementById('container-stil-btns').innerHTML = katalogData.stilwelten.map((item, index) => `
-        <button class="stil-btn w-full text-left p-6 rounded-xl border border-black/10 hover:border-[#D4A373] hover:bg-white transition-all group ${index === 0 ? 'active-stil border-[#D4A373] bg-white shadow-sm' : ''}" data-target="img-${item.id}">
-          <h4 class="text-sm uppercase tracking-widest font-medium text-[#2E2A28] mb-1 group-hover:text-[#D4A373]">${item.title}</h4>
-          <p class="text-xs opacity-60">${item.desc}</p>
+        <button class="stil-btn w-full text-left p-6 rounded-xl border border-black/10 dark:border-white/10 hover:border-brand-gold dark:hover:border-brand-gold hover:bg-white dark:hover:bg-[#252322] transition-all group ${index === 0 ? 'active-stil border-brand-gold dark:border-brand-gold bg-white dark:bg-[#252322] shadow-sm' : ''}" data-target="img-${item.id}">
+          <h4 class="text-sm uppercase tracking-widest font-medium text-brand-textLight dark:text-brand-textDark mb-1 group-hover:text-brand-gold dark:group-hover:text-brand-gold">${item.title}</h4>
+          <p class="text-xs opacity-80">${item.desc}</p>
         </button>
       `).join('');
 
-      // Bilderrahmen-Effekt (Passepartout) mit starkem Zoom zum Abschneiden der Ränder
+      // Bilderrahmen-Effekt (Passepartout)
       document.getElementById('container-stil-images').innerHTML = katalogData.stilwelten.map((item, index) => `
-        <div id="img-${item.id}" class="stil-image absolute inset-4 sm:inset-8 lg:inset-12 bg-white rounded-2xl shadow-2xl transition-opacity duration-800 ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'} border border-black/5">
+        <div id="img-${item.id}" class="stil-image absolute inset-4 sm:inset-8 lg:inset-12 bg-white dark:bg-[#252322] rounded-2xl shadow-2xl transition-opacity duration-800 ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'} border border-black/5 dark:border-white/5">
           <div class="absolute inset-4 sm:inset-6 lg:inset-8 overflow-hidden rounded-lg shadow-inner">
             <div class="absolute inset-0 bg-cover bg-center transform scale-110" style="background-color: ${item.bg}; background-image: ${item.img};"></div>
           </div>
@@ -644,7 +678,7 @@
       bindConfigEvents();
       bindStilEvents();
       bindDragToScroll();
-      lucide.createIcons(); // WICHTIG: Stellt sicher, dass Symbole neu generiert werden
+      lucide.createIcons();
     };
 
     let isDragging = false; 
@@ -665,7 +699,7 @@
           isDown = true;
           isDragging = false;
           slider.classList.remove('cursor-grab', 'snap-x'); 
-          slider.classList.add('cursor-grabbing'); // is-dragging hier noch weglassen!
+          slider.classList.add('cursor-grabbing'); 
           startX = e.pageX - slider.offsetLeft;
           scrollLeft = slider.scrollLeft;
         };
@@ -688,10 +722,10 @@
           if (!isDown) return;
           const x = e.pageX - slider.offsetLeft;
           const walk = (x - startX) * 1; 
-          if (Math.abs(walk) < 5) return; // 5 Pixel Toleranz: Klicks werden geschützt!
+          if (Math.abs(walk) < 5) return; 
           e.preventDefault();
           isDragging = true; 
-          slider.classList.add('is-dragging'); // Erst beim wirklichen Ziehen aktivieren
+          slider.classList.add('is-dragging'); 
           slider.scrollLeft = scrollLeft - walk;
         };
       });
@@ -743,10 +777,10 @@
           const groupBtns = document.querySelectorAll(`.cat-btn[data-group="${group}"]`);
           groupBtns.forEach(b => {
              b.classList.remove('active-cat');
-             b.classList.add('text-gray-500', 'hover:border-black/50');
+             b.classList.add('text-gray-500', 'dark:text-gray-400', 'hover:border-black/50', 'dark:hover:border-white/50');
           });
           btn.classList.add('active-cat');
-          btn.classList.remove('text-gray-500', 'hover:border-black/50');
+          btn.classList.remove('text-gray-500', 'dark:text-gray-400', 'hover:border-black/50', 'dark:hover:border-white/50');
 
           if (group === 'front') {
             renderFronten(targetCat);
@@ -794,8 +828,8 @@
 
       stilBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-          stilBtns.forEach(b => b.classList.remove('border-[#D4A373]', 'bg-white', 'shadow-sm'));
-          btn.classList.add('border-[#D4A373]', 'bg-white', 'shadow-sm');
+          stilBtns.forEach(b => b.classList.remove('border-brand-gold', 'dark:border-brand-gold', 'bg-white', 'dark:bg-[#252322]', 'shadow-sm'));
+          btn.classList.add('border-brand-gold', 'dark:border-brand-gold', 'bg-white', 'dark:bg-[#252322]', 'shadow-sm');
 
           stilImages.forEach(img => {
             img.classList.remove('opacity-100', 'z-10');
@@ -816,13 +850,12 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-visible');
-            // Element nicht weiter überwachen, damit die Animation nur einmal (beim ersten Scrollen) abspielt
             observer.unobserve(entry.target); 
           }
         });
       }, {
-        threshold: 0.1, // Startet, wenn 10% des Elements im Bild sind
-        rootMargin: "0px 0px -50px 0px" // Verzögert den Start leicht, bis man etwas tiefer gescrollt hat
+        threshold: 0.1, 
+        rootMargin: "0px 0px -50px 0px" 
       });
 
       document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
